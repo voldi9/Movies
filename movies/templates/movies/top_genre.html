@@ -28,13 +28,16 @@
         chart.draw(data, options);
       }
     </script>
+    <style type="text/css">
+            h1 { text-align: center; }
+    </style>
 </head>
 
 <body bgcolor="#FDF3E7">
     {% if top_genres_list %}
         <div id="piechart_3d" style="height: 1000px; width: auto; margin: 0 auto !important;"></div>
     {% else %}
-        <h1 align="center">Could not fetch data from the database.</h1>
+        <h1>Could not fetch data from the database.</h1>
     {% endif %}
 </body>
 </html>

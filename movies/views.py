@@ -25,12 +25,11 @@ def index(request):
     #deleting the original_titles that match titles
     #since we don't want to output same title twice
     #also we enumarete the movies by their ranking
-    i = 1
-    for movie in fetched_movies:
-        if movie['title'] == movie['original_title']:
-            movie['original_title'] = ''
-        movie['ranking'] = i
-        i += 1
+
+    for i in range(0, len(fetched_movies)):
+        if fetched_movies[i]['title'] == fetched_movies[i]['original_title']:
+            fetched_movies[i]['original_title'] = ''
+        fetched_movies[i]['ranking'] = i
 
     template = loader.get_template('movies/index.html')
 
@@ -65,15 +64,14 @@ def search(request):
 
     searching_genres = ()
     movies = {}
-    minrank = ''
+    minrank = 0
 
     if(request.method == 'POST'):
         for element in request.POST:
             if element != 'minrank' and element != 'csrfmiddlewaretoken':
                 searching_genres = searching_genres + (element,)
-        minrank = request.POST['minrank']
-        if minrank == '':
-            minrank = 0
+        if request.POST['minrank'] != '':
+            minrank = request.POST['minrank']
         query_str = 'SELECT DISTINCT m.id, m.title, m.original_title, m.vote_average FROM ' \
                     '(SELECT id, title, original_title, vote_average FROM movie WHERE vote_average >= '
         query_str += str(minrank)
@@ -81,11 +79,18 @@ def search(request):
         for genre in searching_genres:
             query_str += 'genre_id = ' + genre + ' OR '
 
-        query_str = query_str[:-4] + ') mg ON (mg.movie_id = m.id);'
+        query_str = query_str[:-4] + ') mg ON (mg.movie_id = m.id) ORDER BY m.vote_average DESC;'
         if searching_genres: #only if genre set is not empty are we searching for movies
             cursor.execute(query_str)
         movies = dictfetchall(cursor)
+        for i in range(0, len(movies)):
+            if movies[i]['title'] == movies[i]['original_title']:
+                movies[i]['original_title'] = ''
+            movies[i]['ranking'] = i
 
+    for genre in genres:
+        if str(genre['id']) in searching_genres:
+            genre['on'] = True
 
     data_dict = {
         'genres_list': genres,
@@ -95,6 +100,7 @@ def search(request):
     }
 
     context = RequestContext(request, data_dict)
+
     return HttpResponse(template.render(context))
 
 def movies(request, movie_id):
