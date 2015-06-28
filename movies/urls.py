@@ -1,8 +1,7 @@
 from django.conf.urls import url
 
-from . import views
+from views import movies
 
 urlpatterns = [
-    #url(r'^$', views.index, name='index'),
-    url(r'^topGenre/$', views.top_genre, name='top_genre'),
+    url(r'^(?P<movie_id>[0-9]+)/$', movies, name='movies'),
 ]

@@ -1,0 +1,25 @@
+input[type=checkbox] {
+  /* Double-sized Checkboxes */
+  margin-right: 8px;
+  -ms-transform: scale(2); /* IE */
+  -moz-transform: scale(2); /* FF */
+  -webkit-transform: scale(2); /* Safari and Chrome */
+  -o-transform: scale(2); /* Opera */
+  padding: 10px;
+}
+.checkboxtext {
+  font-size: 110%;
+  display: inline;
+}
+
+div.form-group {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+
+
+button[type=submit] {
+    margin-top: 23px;
+    margin-left: 20px;
+}

@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Top movie genres</title>
 
-    {% load staticfiles %}
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript">
       google.load("visualization", "1", {packages:["corechart"]});
@@ -19,7 +18,7 @@
         ]);
 
         var options = {
-          title: 'Top genres list',
+          title: 'Top genres chart',
           titleFontSize: 30,
           backgroundColor: '#FDF3E7',
           is3D: true,
