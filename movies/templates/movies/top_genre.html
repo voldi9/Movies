@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Top movie genres</title>
+
+    {% load staticfiles %}
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Genre', 'Number of Movies'],
+          {% for genre in top_genres_list %}
+            ['{{ genre.name }}', {{ genre.count }}],
+          {% endfor %}
+        ]);
+
+        var options = {
+          title: 'Top genres list',
+          titleFontSize: 30,
+          backgroundColor: '#FDF3E7',
+          is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+        chart.draw(data, options);
+      }
+    </script>
+</head>
+
+<body bgcolor="#FDF3E7">
+    {% if top_genres_list %}
+        <div id="piechart_3d" style="height: 1000px; width: auto; margin: 0 auto !important;"></div>
+    {% else %}
+        <h1 align="center">Could not fetch data from the database.</h1>
+    {% endif %}
+</body>
+</html>

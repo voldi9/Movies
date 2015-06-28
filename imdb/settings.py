@@ -78,10 +78,10 @@ WSGI_APPLICATION = 'imdb.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd8u6uelvine6d6',
-        'USER': 'iwzexazhfjxbbt',
-        'PASSWORD': '4JVMJFooosyfdM5Y79Si-c691D',
-        'HOST': 'ec2-54-217-202-110.eu-west-1.compute.amazonaws.com',
+        'NAME': 'dab4j151na0jvj',
+        'USER': 'jbybgppvkowplb',
+        'PASSWORD': 'qygExPhZ1HVJi3QpNKEbfaLxp5',
+        'HOST': 'ec2-54-227-249-165.compute-1.amazonaws.com',
         'PORT': '5432'
     }
 }

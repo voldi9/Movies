@@ -35,3 +35,16 @@ def index(request):
         'top_movies_list': fetched_movies,
     })
     return HttpResponse(template.render(context))
+
+def top_genre(request):
+    connection = connections['default']
+    cursor = connection.cursor()
+    cursor.execute('SELECT genre.name, COUNT(*) FROM movie_genre '
+                   'INNER JOIN genre ON (genre.id = movie_genre.genre_id) '
+                   'GROUP BY genre.name ORDER BY COUNT(*) DESC;')
+    genres = dictfetchall(cursor)
+    template = loader.get_template('movies/top_genre.html')
+    context = RequestContext(request, {
+        'top_genres_list': genres,
+    })
+    return HttpResponse(template.render(context))
